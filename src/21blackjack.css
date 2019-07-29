@@ -1,0 +1,181 @@
+.board {
+    z-index: 10;
+    top: 20%;
+    left: 40%;
+    width: 1100px;
+    height: 620px;
+    border-radius: 0 0 410px 410px;
+    margin: 0 0 0 -400px;
+    display: table;
+    text-align: center;
+    border: 5px solid black;
+    border-top: none;
+    position: absolute;
+    background: rgb(30, 139, 30);
+    top: -1px;
+}
+
+h1 {
+    vertical-align: middle;
+    display: table-cell;
+    font-family: 'Great Vibes', cursive;
+    color: white;
+    font-size: 80px;
+    font-weight: bold;
+}
+
+
+/* dealers cards     */
+
+#dcard0 {
+    left: 170px;
+    top: 10px;
+    height: 200px;
+    width: 145px;
+    position: absolute;
+    border-radius: 15px;
+}
+
+#dcard1 {
+    left: 322px;
+    top: 10px;
+    height: 200px;
+    width: 145px;
+    position: absolute;
+    border-radius: 15px;
+}
+
+#dcard2 {
+    left: 470px;
+    top: 10px;
+    height: 200px;
+    width: 145px;
+    position: absolute;
+    border-radius: 15px;
+}
+
+#dcard3 {
+    left: 620px;
+    top: 10px;
+    height: 200px;
+    width: 145px;
+    position: absolute;
+    border-radius: 15px;
+}
+
+#dcard4 {
+    left: 775px;
+    top: 10px;
+    height: 200px;
+    width: 150px;
+    position: absolute;
+    border-radius: 15px;
+}
+
+input[type="text"] {
+    width: 80px;
+    border-radius: 2px;
+    margin: 25px;
+}
+
+
+/* players options     */
+
+.bet {
+    width: 100px;
+    border: 1px solid black;
+    margin: 5px;
+}
+
+.playersmoney {
+    left: -120px;
+    top: 420px;
+    border: 1px solid black;
+    height: 200px;
+    width: 130px;
+    position: absolute;
+    border-radius: 15px;
+    color: white;
+    background-color: black;
+}
+
+.playerchoices {
+    left: 995px;
+    top: 460px;
+    height: 160px;
+    width: 190px;
+    position: absolute;
+    border-radius: 15px;
+    color: black;
+}
+
+
+/* players cards     */
+
+#pcard0 {
+    left: 170px;
+    top: 349px;
+    height: 200px;
+    width: 145px;
+    position: absolute;
+    border-radius: 15px;
+    color: black;
+    background-size: cover;
+}
+
+#pcard1 {
+    left: 319px;
+    top: 349px;
+    height: 200px;
+    width: 145px;
+    position: absolute;
+    border-radius: 15px;
+    color: black;
+    background-size: cover;
+}
+
+#pcard2 {
+    left: 469px;
+    top: 349px;
+    height: 200px;
+    width: 145px;
+    border-radius: 15px;
+    position: absolute;
+    color: black;
+}
+
+#pcard3 {
+    left: 620px;
+    top: 349px;
+    height: 200px;
+    width: 145px;
+    border-radius: 15px;
+    position: absolute;
+    color: black;
+}
+
+#pcard4 {
+    left: 770px;
+    top: 349px;
+    height: 200px;
+    width: 145px;
+    border-radius: 15px;
+    position: absolute;
+    color: black;
+}
+
+.playerchoices .hit,
+.playerchoices .stick {
+    border-radius: 15px;
+    width: 75px;
+    height: 70px;
+    display: inline-block;
+    /* color: white;
+     */
+    text-align: center;
+}
+
+.playerchoices .new-game {
+    width: 180px;
+    height: 35px;
+}
