@@ -40,8 +40,8 @@ function Elements(props){
         <div class="card playersmoney" >
             <div class="card-body">
                 <h6 class="card-title" id="balance">Balance</h6>
-                <input type="text" class="form-control" id="amount"></input>
-                <button type="button" class="btn btn-dark bet" onClick={props.Bet}>Bet</button>
+                <input type="text" class="form-control" id="amount" ></input>
+                <button type="button" class="btn btn-dark bet" onClick={props.makeBet}>Bet</button>
             </div>
         </div>
 
@@ -68,7 +68,7 @@ function Elements(props){
             <button type="button" id="stick" class="btn btn-secondary stick" onClick={props.onClick}>Stick</button>
      
           
-            <button type="button" id="new-game" class="btn btn-secondary new-game" onClick={props.onClickBet}>New Game</button>
+            <button type="button" id="new-game" class="btn btn-secondary new-game" onClick={props.onClickGame}>New Game</button>
         </div>
     </div>
 )
@@ -94,27 +94,40 @@ class Board extends React.Component{
              DDA : 0,
              playerOption : '',
              balance : 100,
-             betmade : true
+            firstHalf:''
+             
         };
+        
+        } 
 
+        firstHalfButtonEventListener() {
+           this.firstHalf();
         }
-          //make the eck containing 53 cards
-    Bet() {
-        for (var s = 0; s < this.state.suits.length; s++) {
-            for (var v = 0; v < this.state.values.length; v++) {
-                this.state.card = { Suit: this.state.suits[s], Value: this.state.values[v] };
-                this.state.deck.push(this.state.card);
+        
+         firstHalf() {
+            // makeBet();
+            this.makedeck();
+            this.shuffledeck();
+            // drawdeck();
+            // displayCards();
+        }
+        makedeck(){
+            for (var s = 0; s < this.state.suits.length; s++) {
+                for (var v = 0; v < this.state.values.length; v++) {
+                    this.state.card = { Suit: this.state.suits[s], Value: this.state.values[v] };
+                    this.state.deck.push(this.state.card);
+                }
             }
         }
-
-        this.state.playdeck = [];
-        for (let i = 0; i < 4; i++) {
-            this.state.deck_random = Math.floor(Math.random() * this.state.deck.length);
-            this.state.playdeck.push(this.state.deck[this.state.deck_random]);
+        shuffledeck(){
+            this.state.playdeck = [];
+            for (let i = 0; i < 4; i++) {
+                this.state.deck_random = Math.floor(Math.random() * this.state.deck.length);
+                this.state.playdeck.push(this.state.deck[this.state.deck_random]);
+            }
+            console.log(this.state.playdeck);
+            return this.state.deck;
         }
-        console.log(this.state.playdeck);
-        return this.state.deck;
-    }
 
     // //shuffle deck and get four cards
     // shuffledeck() {
@@ -126,7 +139,8 @@ class Board extends React.Component{
     // }
         render() {
         return( 
-            <Elements onClickBet={() => this.Bet()} />
+            <Elements onClickGame={() => this.firstHalfButtonEventListener()}
+            onClickmakeBet={() => this.makeBet()} />
             )
         }
 
@@ -159,3 +173,5 @@ ReactDOM.render(
     <Game />,
     document.getElementById('root')
 );
+
+
