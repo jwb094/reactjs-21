@@ -109,7 +109,7 @@ class Board extends React.Component{
             this.makedeck();
             this.shuffledeck();
             this.drawdeck();
-            // displayCards();
+            this.displayCards();
         }
         makedeck(){
             for (var s = 0; s < this.state.suits.length; s++) {
@@ -133,6 +133,23 @@ class Board extends React.Component{
             this.state.DCards.push(this.state.playdeck[1], this.state.playdeck[3]);
             this.state.PPCards = this.state.PCards;
             console.log(this.state.PPCards);
+        }
+
+        displayCards() {
+            for (let i = 0; i < this.state.PCards.length; i++) {
+                let a = i;
+                let card = this.state.PCards[i].Value + this.state.PCards[i].Suit;
+                $('#pcard' + a).css("background", "url(imgs/" + card + ".svg)");
+                $('#pcard' + a).fadeIn(3000);
+                document.getElementById('pcard' + a).style.backgroundSize = "145px 200px";
+            }
+            let dcard = this.state.DCards[0].Value + this.state.DCards[0].Suit;
+            $('#dcard0').css("background", "url(imgs/" + dcard + ".svg)");
+            $('#dcard0').fadeIn(3000);
+            document.getElementById('dcard0').style.backgroundSize = "145px 200px";
+            $('#dcard1').css("background", "url(imgs/cardback.jpg)");
+            document.getElementById('dcard1').style.backgroundSize = "145px 200px";
+    
         }
     // //shuffle deck and get four cards
     // shuffledeck() {
