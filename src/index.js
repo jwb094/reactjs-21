@@ -108,7 +108,7 @@ class Board extends React.Component{
             // makeBet();
             this.makedeck();
             this.shuffledeck();
-            // drawdeck();
+            this.drawdeck();
             // displayCards();
         }
         makedeck(){
@@ -125,10 +125,15 @@ class Board extends React.Component{
                 this.state.deck_random = Math.floor(Math.random() * this.state.deck.length);
                 this.state.playdeck.push(this.state.deck[this.state.deck_random]);
             }
-            console.log(this.state.playdeck);
+           
             return this.state.deck;
         }
-
+        drawdeck() {
+            this.state.PCards.push(this.state.playdeck[0], this.state.playdeck[2]);
+            this.state.DCards.push(this.state.playdeck[1], this.state.playdeck[3]);
+            this.state.PPCards = this.state.PCards;
+            console.log(this.state.PPCards);
+        }
     // //shuffle deck and get four cards
     // shuffledeck() {
     //     this.state.playdeck = [];
