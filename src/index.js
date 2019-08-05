@@ -41,13 +41,13 @@ function Elements(props){
             <div class="card-body">
                 <h6 class="card-title" id="balance">Balance</h6>
                 <input type="text" class="form-control" id="amount" ></input>
-                <button type="button" class="btn btn-dark bet" onClick={props.makeBet}>Bet</button>
+                <button type="button" class="btn btn-dark bet" onClick={props.onClickmakeBet}>Bet</button>
             </div>
         </div>
 
-        <div id="pcard0">
+        {/* <div id="pcard0">
             <p id="pc0"></p>
-        </div>
+        </div> */}
 
         <div id="pcard1">
             <p id="pc1"></p>
@@ -105,11 +105,15 @@ class Board extends React.Component{
         }
         
          firstHalf() {
-            // makeBet();
+            this.makeBet();
             this.makedeck();
             this.shuffledeck();
             this.drawdeck();
             this.displayCards();
+        }
+        makeBet(){
+            let betmade = document.getElementById('amount').value;
+            console.log(betmade);
         }
         makedeck(){
             for (var s = 0; s < this.state.suits.length; s++) {
@@ -139,16 +143,18 @@ class Board extends React.Component{
             for (let i = 0; i < this.state.PCards.length; i++) {
                 let a = i;
                 let card = this.state.PCards[i].Value + this.state.PCards[i].Suit;
-                $('#pcard' + a).css("background", "url(imgs/" + card + ".svg)");
-                $('#pcard' + a).fadeIn(3000);
-                document.getElementById('pcard' + a).style.backgroundSize = "145px 200px";
+                
+               
+              //  $('#pcard' + a).css("background", "url(imgs/" + card + ".svg)");
+               // $('#pcard' + a).fadeIn(3000);
+                // document.getElementById('pcard' + a).style.backgroundSize = "145px 200px";
             }
             let dcard = this.state.DCards[0].Value + this.state.DCards[0].Suit;
-            $('#dcard0').css("background", "url(imgs/" + dcard + ".svg)");
-            $('#dcard0').fadeIn(3000);
-            document.getElementById('dcard0').style.backgroundSize = "145px 200px";
-            $('#dcard1').css("background", "url(imgs/cardback.jpg)");
-            document.getElementById('dcard1').style.backgroundSize = "145px 200px";
+            // $('#dcard0').css("background", "url(imgs/" + dcard + ".svg)");
+            // $('#dcard0').fadeIn(3000);
+            // document.getElementById('dcard0').style.backgroundSize = "145px 200px";
+            // $('#dcard1').css("background", "url(imgs/cardback.jpg)");
+            // document.getElementById('dcard1').style.backgroundSize = "145px 200px";
     
         }
     // //shuffle deck and get four cards
@@ -161,8 +167,10 @@ class Board extends React.Component{
     // }
         render() {
         return( 
-            <Elements onClickGame={() => this.firstHalfButtonEventListener()}
-            onClickmakeBet={() => this.makeBet()} />
+            <Elements 
+            onClickGame={() => this.firstHalfButtonEventListener()}
+            onClickmakeBet={() => this.makeBet()} 
+            />
             )
         }
 
