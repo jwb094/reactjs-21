@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './21blackjack.css';
+import $ from 'jquery'; 
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -45,9 +46,9 @@ function Elements(props){
             </div>
         </div>
 
-        {/* <div id="pcard0">
+         <div id="pcard0">
             <p id="pc0"></p>
-        </div> */}
+        </div> 
 
         <div id="pcard1">
             <p id="pc1"></p>
@@ -140,31 +141,22 @@ class Board extends React.Component{
         }
 
         displayCards() {
-            for (let i = 0; i < this.state.PCards.length; i++) {
-                let a = i;
-                let card = this.state.PCards[i].Value + this.state.PCards[i].Suit;
-                
-               
-              //  $('#pcard' + a).css("background", "url(imgs/" + card + ".svg)");
-               // $('#pcard' + a).fadeIn(3000);
-                // document.getElementById('pcard' + a).style.backgroundSize = "145px 200px";
-            }
-            let dcard = this.state.DCards[0].Value + this.state.DCards[0].Suit;
-            // $('#dcard0').css("background", "url(imgs/" + dcard + ".svg)");
-            // $('#dcard0').fadeIn(3000);
-            // document.getElementById('dcard0').style.backgroundSize = "145px 200px";
-            // $('#dcard1').css("background", "url(imgs/cardback.jpg)");
-            // document.getElementById('dcard1').style.backgroundSize = "145px 200px";
-    
+        for (let i = 0; i < this.state.PCards.length; i++) {
+            let a = i;
+            let card = this.state.PCards[i].Value + this.state.PCards[i].Suit;
+            $('#pcard' + a).css("background", "url(./imgs/" + card + ".svg)");
+            $('#pcard' + a).fadeIn(3000);
+            document.getElementById('pcard' + a).style.backgroundSize = "145px 200px";
         }
-    // //shuffle deck and get four cards
-    // shuffledeck() {
-    //     this.state.playdeck = [];
-    //     for (let i = 0; i < 4; i++) {
-    //         this.state.deck_random = Math.floor(Math.random() * this.state.deck.length);
-    //         this.state.playdeck.push(this.state.deck[this.state.deck_random]);
-    //     }
-    // }
+        let dcard = this.state.DCards[0].Value + this.state.DCards[0].Suit;
+        $('#dcard0').css("background", "url(./imgs/" + dcard + ".svg)");
+        $('#dcard0').fadeIn(3000);
+        document.getElementById('dcard0').style.backgroundSize = "145px 200px";
+        $('#dcard1').css("background", "url(./imgs/cardback.jpg)");
+        document.getElementById('dcard1').style.backgroundSize = "145px 200px";
+
+    }
+
         render() {
         return( 
             <Elements 
