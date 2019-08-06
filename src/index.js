@@ -65,8 +65,8 @@ function Elements(props){
         </div>
         <div class="playerchoices">
       
-            <button type="button" id="hit" class="btn btn-secondary hit" onClick={props.onClick}>Hit</button>
-            <button type="button" id="stick" class="btn btn-secondary stick" onClick={props.onClick}>Stick</button>
+            <button type="button" id="hit" class="btn btn-secondary hit" onClick={props.onClickHit}>Hit</button>
+            <button type="button" id="stick" class="btn btn-secondary stick" onClick={props.onClickStick}>Stick</button>
      
           
             <button type="button" id="new-game" class="btn btn-secondary new-game" onClick={props.onClickGame}>New Game</button>
@@ -155,13 +155,71 @@ class Board extends React.Component{
         $('#dcard1').css("background", "url(./imgs/cardback.jpg)");
         document.getElementById('dcard1').style.backgroundSize = "145px 200px";
 
-    }
+        }
 
+        hit(){
+
+            var newcard = Math.floor(Math.random() * this.state.playdeck.length);
+            this.state.NPCards.push(this.state.playdeck[newcard]);
+            console.log(this.state.NPCards);
+            if (this.state.NPCards.length === 1) {
+                let card = this.state.NPCards[0].Value + this.state.NPCards[0].Suit;
+                $('#pcard2').css("background", "url(imgs/" + card + ".svg)");
+                document.getElementById('pcard2').style.backgroundSize = "145px 200px";;
+                this.calculateCards();
+            }
+            if (this.state.NPCards.length === 2) {
+                let card = this.state.NPCards[1].Value + this.state.NPCards[1].Suit;
+                $('#pcard3').css("background", "url(./imgs/" + card + ".svg)");
+                document.getElementById('pcard3').style.backgroundSize = "145px 200px";;
+                this.calculateCards();
+            }
+            if (this.state.NPCards.length === 3) {
+                let card = this.state.NPCards[2].Value + this.state.NPCards[2].Suit;
+                $('#pcard4').css("background", "url(imgs/" + card + ".svg)");
+                document.getElementById('pcard4').style.backgroundSize = "145px 200px";
+                this.calculateCards();
+            }
+           
+
+        }
+        calculateCards(){
+            let total = 0;
+            let cardvalue = 0;
+            if (this.state.NPCards.length === 0) {
+              return  null;
+            } else {
+                this.state.PPCards = this.state.PCards.concat(this.state.NPCards);
+            }
+    
+            //giving values to cards that values are either integer:2 => 10 or K,J,Q,A
+            for (const key in this.state.PPCards) {
+                if (typeof this.state.PPCards[key].Value != "string") {
+                    total += this.state.PPCards[key].Value;
+                } else if (this.state.PPCards[key].Value === 'K' || this.state.PPCards[key].Value === 'Q' || this.state.PPCards[key].Value === 'J') {
+                    cardvalue += 10;
+                } else if (this.state.PPCards[key].Value === 'A') {
+                    cardvalue += 11;
+                }
+            }
+    
+            this.state.PDA = total + cardvalue;
+            console.log(this.state.PDA);
+            if (this.state.PDA > 21) {
+                $('.playerchoices').click(false);
+                $('#message').html('The House Wins');
+                this.dealerdraw();
+                let pwin = false;
+            }
+        }
+        
+        
         render() {
         return( 
             <Elements 
             onClickGame={() => this.firstHalfButtonEventListener()}
             onClickmakeBet={() => this.makeBet()} 
+            onClickHit={() => this.hit()} 
             />
             )
         }
