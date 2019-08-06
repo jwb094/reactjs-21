@@ -183,6 +183,12 @@ class Board extends React.Component{
            
 
         }
+
+        stick(){
+
+            this.calculateCards();
+            this.dealerdraw();
+        }
         calculateCards(){
             let total = 0;
             let cardvalue = 0;
@@ -219,7 +225,8 @@ class Board extends React.Component{
             <Elements 
             onClickGame={() => this.firstHalfButtonEventListener()}
             onClickmakeBet={() => this.makeBet()} 
-            onClickHit={() => this.hit()} 
+            onClickHit={() => this.hit()}
+            onClickStick={() => this.stick()}
             />
             )
         }
