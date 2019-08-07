@@ -95,7 +95,8 @@ class Board extends React.Component{
              DDA : 0,
              playerOption : '',
              balance : 100,
-            firstHalf:''
+            firstHalf:'',
+            pwin:false
              
         };
         
@@ -215,10 +216,182 @@ class Board extends React.Component{
                 $('.playerchoices').click(false);
                 $('#message').html('The House Wins');
                 this.dealerdraw();
-                let pwin = false;
+                this.state.pwin = false;
             }
         }
         
+
+     dealerdraw() {
+        let dcard = this.state.DCards[1].Value + this.state.DCards[1].Suit;
+        $('#dcard1').css("background", "url(imgs/" + dcard + ".svg)");
+        document.getElementById('dcard1').style.backgroundSize = "145px 200px";
+        if (this.state.pwin !== false) {
+            this.checkforsafestand();
+        } else {
+            this.calculateDealersCards();
+        }
+        //checkforsafestand();
+        //calculateDealersCards();
+        //console.log(DDA);
+        // if (DDA <= 17) {
+        //     calculateDealersCards();
+        //     var newcard = Math.floor(Math.random() * deck.length);
+        //     DCards.push(deck[newcard]);
+        //     if (DCards.length === 3) {
+        //         let dcard = DCards[2].Value + DCards[2].Suit;
+        //         $('#dcard2').css("background", "url(imgs/" + dcard + ".svg)");
+        //         document.getElementById('dcard2').style.backgroundSize = "145px 200px";
+        //         calculateDealersCards();
+        //     }
+        //     if (DCards.length === 4) {
+        //         let dcard = DCards[3].Value + DCards[3].Suit;
+        //         $('#dcard3').css("background", "url(imgs/" + dcard + ".svg)");
+        //         document.getElementById('dcard3').style.backgroundSize = "145px 200px";
+        //         calculateDealersCards();
+        //     }
+        //     if (DCards.length === 5) {
+        //         let dcard = DCards[4].Value + DCards[4].Suit;
+        //         $('#dcard4').css("background", "url(imgs/" + dcard + ".svg)");
+        //         document.getElementById('dcard4').style.backgroundSize = "145px 200px";
+        //         calculateDealersCards();
+        //     }
+        // } else {
+        //     calculateDealersCards();
+        // }
+    }
+
+     checkforsafestand() {
+        let total = 0;
+        let cardvalue = 0;
+        for (const key in DCards) {
+            if (typeof DCards[key].Value != "string") {
+                total += DCards[key].Value;
+            } else if (DCards[key].Value === 'K' || DCards[key].Value === 'Q' || DCards[key].Value === 'J') {
+                cardvalue += 10;
+            } else if (DCards[key].Value === 'A') {
+                cardvalue += 11;
+            }
+        }
+          function checkforsafestand() {
+        let total = 0;
+        let cardvalue = 0;
+        for (const key in DCards) {
+            if (typeof DCards[key].Value != "string") {
+                total += DCards[key].Value;
+            } else if (DCards[key].Value === 'K' || DCards[key].Value === 'Q' || DCards[key].Value === 'J') {
+                cardvalue += 10;
+            } else if (DCards[key].Value === 'A') {
+                cardvalue += 11;
+            }
+        }
+        DDA = total + cardvalue;
+        if (DDA < 17) {
+            var newcard = Math.floor(Math.random() * deck.length);
+            DCards.push(deck[newcard]);
+            if (DCards.length === 3) {
+                console.log(DCards);
+                let dcard = DCards[2].Value + DCards[2].Suit;
+                $('#dcard2').css("background", "url(imgs/" + dcard + ".svg)");
+                document.getElementById('dcard2').style.backgroundSize = "145px 200px";
+                // calculateDealersCards();
+            }
+            if (DCards.length === 4) {
+                console.log(DCards);
+                let dcard = DCards[3].Value + DCards[3].Suit;
+                $('#dcard3').css("background", "url(imgs/" + dcard + ".svg)");
+                document.getElementById('dcard3').style.backgroundSize = "145px 200px";
+                // calculateDealersCards();
+            }
+            if (DCards.length === 5) {
+                console.log(DCards);
+                let dcard = DCards[4].Value + DCards[4].Suit;
+                $('#dcard4').css("background", "url(imgs/" + dcard + ".svg)");
+                document.getElementById('dcard4').style.backgroundSize = "150px 200px";
+                //calculateDealersCards();
+            } else {
+                calculateDealersCards();
+            }
+        }
+        calculateDealersCards();
+    }DDA = total + cardvalue;
+        if (DDA < 17) {
+            var newcard = Math.floor(Math.random() * deck.length);
+            DCards.push(deck[newcard]);
+            if (DCards.length === 3) {
+                console.log(DCards);
+                let dcard = DCards[2].Value + DCards[2].Suit;
+                $('#dcard2').css("background", "url(imgs/" + dcard + ".svg)");
+                document.getElementById('dcard2').style.backgroundSize = "145px 200px";
+                // calculateDealersCards();
+            }
+            if (DCards.length === 4) {
+                console.log(DCards);
+                let dcard = DCards[3].Value + DCards[3].Suit;
+                $('#dcard3').css("background", "url(imgs/" + dcard + ".svg)");
+                document.getElementById('dcard3').style.backgroundSize = "145px 200px";
+                // calculateDealersCards();
+            }
+            if (DCards.length === 5) {
+                console.log(DCards);
+                let dcard = DCards[4].Value + DCards[4].Suit;
+                $('#dcard4').css("background", "url(imgs/" + dcard + ".svg)");
+                document.getElementById('dcard4').style.backgroundSize = "150px 200px";
+                //calculateDealersCards();
+            } else {
+                calculateDealersCards();
+            }
+        }
+        calculateDealersCards();
+    }
+
+     calculateDealersCards() {
+        let total = 0;
+        let cardvalue = 0;
+        for (const key in this.state.DCards) {
+            if (typeof this.state.DCards[key].Value != "string") {
+                total += this.state.DCards[key].Value;
+            } else if (this.state.DCards[key].Value === 'K' || this.state.DCards[key].Value === 'Q' || this.state.DCards[key].Value === 'J') {
+                cardvalue += 10;
+            } else if (this.state.DCards[key].Value === 'A') {
+                cardvalue += 11;
+            }
+        }
+        this.state.DDA = total + cardvalue;
+        console.log(this.state.DDA);
+        if (this.state.DDA < 17) {
+            this.checkforsafestand();
+        } else if (this.state.DDA <= 17 && this.state.pwin === true) {
+            $('.playerchoices').click(false);
+            this.state.pwin = false;
+            $('#message').html('You Lose');
+        } else {
+            if (this.state.PDA > 21) { // Player lose
+                //console.log(PDA);
+                $('.playerchoices').click(false);
+                this.state.pwin = false;
+                $('#message').html('You Lose');
+            } else if (this.state.DDA > this.state.PDA && this.state.DDA <= 21) { // Player lose
+                $('.playerchoices').click(false);
+                //console.log(PDA + " " + DDA);
+                $('#message').html('You lose');
+                this.state.pwin = false;
+            } else if (this.state.DDA === this.state.PDA) { // Player lose
+                $('.playerchoices').click(false);
+                //console.log(PDA + " " + DDA);
+                $('#message').html('You lose');
+                this.state.pwin = false;
+            } else if (this.state.PDA > this.state.DDA && this.state.PDA <= 21) { // Player wins
+                $('.playerchoices').click(false);
+                //console.log(PDA + " " + DDA);
+                $('#message').html('You Win');
+                this.state.pwin = true;
+            } else if (this.state.DDA > this.state.PDA && this.state.DDA > 21 && this.state.PDA <= 21) { // Player wins
+                $('.playerchoices').click(false);
+                $('#message').html('You Win');
+                this.state.pwin = true;
+            }
+        }
+    }
         
         render() {
         return( 
