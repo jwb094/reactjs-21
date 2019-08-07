@@ -263,85 +263,44 @@ class Board extends React.Component{
      checkforsafestand() {
         let total = 0;
         let cardvalue = 0;
-        for (const key in DCards) {
-            if (typeof DCards[key].Value != "string") {
-                total += DCards[key].Value;
-            } else if (DCards[key].Value === 'K' || DCards[key].Value === 'Q' || DCards[key].Value === 'J') {
+        for (const key in this.state.DCards) {
+            if (typeof this.state.DCards[key].Value != "string") {
+                total += this.state.DCards[key].Value;
+            } else if (this.state.DCards[key].Value === 'K' || this.state.DCards[key].Value === 'Q' || this.state.DCards[key].Value === 'J') {
                 cardvalue += 10;
-            } else if (DCards[key].Value === 'A') {
+            } else if (this.state.DCards[key].Value === 'A') {
                 cardvalue += 11;
             }
         }
-          function checkforsafestand() {
-        let total = 0;
-        let cardvalue = 0;
-        for (const key in DCards) {
-            if (typeof DCards[key].Value != "string") {
-                total += DCards[key].Value;
-            } else if (DCards[key].Value === 'K' || DCards[key].Value === 'Q' || DCards[key].Value === 'J') {
-                cardvalue += 10;
-            } else if (DCards[key].Value === 'A') {
-                cardvalue += 11;
-            }
-        }
-        DDA = total + cardvalue;
-        if (DDA < 17) {
-            var newcard = Math.floor(Math.random() * deck.length);
-            DCards.push(deck[newcard]);
-            if (DCards.length === 3) {
-                console.log(DCards);
-                let dcard = DCards[2].Value + DCards[2].Suit;
-                $('#dcard2').css("background", "url(imgs/" + dcard + ".svg)");
+        this.state.DDA = total + cardvalue;
+        if (this.state.DDA < 17) {
+            var newcard = Math.floor(Math.random() * this.state.deck.length);
+            this.state.DCards.push(this.state.deck[newcard]);
+            if (this.state.DCards.length === 3) {
+                console.log(this.state.DCards);
+                let dcard = this.state.DCards[2].Value + this.state.DCards[2].Suit;
+                $('#dcard2').css("background", "url(./imgs/" + dcard + ".svg)");
                 document.getElementById('dcard2').style.backgroundSize = "145px 200px";
                 // calculateDealersCards();
             }
-            if (DCards.length === 4) {
-                console.log(DCards);
-                let dcard = DCards[3].Value + DCards[3].Suit;
-                $('#dcard3').css("background", "url(imgs/" + dcard + ".svg)");
+            if (this.state.DCards.length === 4) {
+                console.log(this.state.DCards);
+                let dcard = this.state.DCards[3].Value + this.state.DCards[3].Suit;
+                $('#dcard3').css("background", "url(./imgs/" + dcard + ".svg)");
                 document.getElementById('dcard3').style.backgroundSize = "145px 200px";
                 // calculateDealersCards();
             }
-            if (DCards.length === 5) {
-                console.log(DCards);
-                let dcard = DCards[4].Value + DCards[4].Suit;
-                $('#dcard4').css("background", "url(imgs/" + dcard + ".svg)");
+            if (this.state.DCards.length === 5) {
+                console.log(this.state.DCards);
+                let dcard = this.state.DCards[4].Value + this.state.DCards[4].Suit;
+                $('#dcard4').css("background", "url(i./mgs/" + dcard + ".svg)");
                 document.getElementById('dcard4').style.backgroundSize = "150px 200px";
                 //calculateDealersCards();
             } else {
-                calculateDealersCards();
+                this.calculateDealersCards();
             }
         }
-        calculateDealersCards();
-    }DDA = total + cardvalue;
-        if (DDA < 17) {
-            var newcard = Math.floor(Math.random() * deck.length);
-            DCards.push(deck[newcard]);
-            if (DCards.length === 3) {
-                console.log(DCards);
-                let dcard = DCards[2].Value + DCards[2].Suit;
-                $('#dcard2').css("background", "url(imgs/" + dcard + ".svg)");
-                document.getElementById('dcard2').style.backgroundSize = "145px 200px";
-                // calculateDealersCards();
-            }
-            if (DCards.length === 4) {
-                console.log(DCards);
-                let dcard = DCards[3].Value + DCards[3].Suit;
-                $('#dcard3').css("background", "url(imgs/" + dcard + ".svg)");
-                document.getElementById('dcard3').style.backgroundSize = "145px 200px";
-                // calculateDealersCards();
-            }
-            if (DCards.length === 5) {
-                console.log(DCards);
-                let dcard = DCards[4].Value + DCards[4].Suit;
-                $('#dcard4').css("background", "url(imgs/" + dcard + ".svg)");
-                document.getElementById('dcard4').style.backgroundSize = "150px 200px";
-                //calculateDealersCards();
-            } else {
-                calculateDealersCards();
-            }
-        }
-        calculateDealersCards();
+        this.calculateDealersCards();
     }
 
      calculateDealersCards() {
