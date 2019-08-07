@@ -351,6 +351,8 @@ class Board extends React.Component{
             }
         }
     }
+
+    clearboard(){}
         
         render() {
         return( 
