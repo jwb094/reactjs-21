@@ -327,27 +327,37 @@ class Board extends React.Component{
             if (this.state.PDA > 21) { // Player lose
                 //console.log(PDA);
                 $('.playerchoices').click(false);
-                this.state.pwin = false;
+                this.setState({
+                    pwin:false
+                });
                 $('#message').html('You Lose');
             } else if (this.state.DDA > this.state.PDA && this.state.DDA <= 21) { // Player lose
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
                 $('#message').html('You lose');
-                this.state.pwin = false;
+                this.setState({
+                    pwin:false
+                });
             } else if (this.state.DDA === this.state.PDA) { // Player lose
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
                 $('#message').html('You lose');
-                this.state.pwin = false;
+                this.setState({
+                    pwin:false
+                });
             } else if (this.state.PDA > this.state.DDA && this.state.PDA <= 21) { // Player wins
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
                 $('#message').html('You Win');
-                this.state.pwin = true;
+                this.setState({
+                    pwin:true
+                });
             } else if (this.state.DDA > this.state.PDA && this.state.DDA > 21 && this.state.PDA <= 21) { // Player wins
                 $('.playerchoices').click(false);
                 $('#message').html('You Win');
-                this.state.pwin = true;
+                this.setState({
+                    pwin:true
+                });
             }
         }
     }
