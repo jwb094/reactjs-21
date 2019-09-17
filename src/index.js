@@ -103,12 +103,10 @@ class Board extends React.Component{
         
         } 
 
-
-         componentDidMount() {
-         let balance = this.state.balance;
-         }
       
-       
+
+      
+         newg = $('.playerchoices .new-game');
         
         firstHalfButtonEventListener() {
            this.firstHalf();    
@@ -285,10 +283,8 @@ class Board extends React.Component{
                 cardvalue += 11;
             }
         }
-        //this.state.DDA = total + cardvalue;
-        this.setState({
-          DDA:total + cardvalue
-        });
+         this.state.DDA = total + cardvalue;
+        
         if (this.state.DDA < 17) {
             var newcard = Math.floor(Math.random() * this.state.deck.length);
             this.state.DCards.push(this.state.deck[newcard]);
@@ -331,11 +327,11 @@ class Board extends React.Component{
                 cardvalue += 11;
             }
         }
-        //this.state.DDA = total + cardvalue;
-        this.setState({
-            DDA:total + cardvalue
-        });
-        console.log(this.state.DDA);
+        this.state.DDA = total + cardvalue;
+        // this.setState({
+        //     DDA:total + cardvalue
+        // });
+        //console.log(this.state.DDA);
         if (this.state.DDA < 17) {
             this.checkforsafestand();
         } else if (this.state.DDA <= 17 && this.state.pwin === true) {
@@ -411,16 +407,28 @@ class Board extends React.Component{
         $('#dcard4').css('background', '');
         $('#dcard4').empty();
         $('#message').html('BlackJack');
-        this.state.PCards = [];
-        this.state.DCards = [];
-        this.state.playdeck = [];
-        this.state.NPCards = [];
-        this.state.deck = [];
-        this.state.balance ='';
+       
+        this.setState({
+            PCards:[],
+            deck:[],
+            playdeck : [],
+            PCards : [],
+            PPCards:[],
+            DCards : [],
+            NPCards : []
+        })
     }
         
         render() {
-            console.log(this.state.bet);
+            //   let playerchoice = $('.playerchoices');
+            // playerchoice.each(function(i, button) {
+            //     $(button).click(function(event) {
+            //         this.state.playerOption = event.target.id;
+            //         this.hitOrStick();
+            //     });
+            // });
+
+            // console.log(this.state.bet);
         return( 
             <Elements 
             onClickGame={() => this.firstHalfButtonEventListener()}
