@@ -13,7 +13,7 @@ import * as serviceWorker from './serviceWorker';
 serviceWorker.unregister();
 
 function Elements(props){
-
+console.log(props);
     return (   
         <div class="board">
         <h1 id="message">BlackJack</h1>
@@ -38,9 +38,9 @@ function Elements(props){
             <p id="dc4"></p>
         </div>
 
-        <div class="card playersmoney" >
+        <div class="card playersmoney">
             <div class="card-body">
-                <h6 class="card-title" id="balance">Balance</h6>
+                <h6 class="card-title" id="balance">Balance : {props.balance}</h6>
                 <input type="text" class="form-control" id="amount" ></input>
                 <button type="button" class="btn btn-dark bet" onClick={props.onClickmakeBet}>Bet</button>
             </div>
@@ -96,14 +96,22 @@ class Board extends React.Component{
              playerOption : '',
              balance : 100,
             firstHalf:'',
-            pwin:false
+            pwin:false,
+            'bet':0
              
         };
         
         } 
 
+
+         componentDidMount() {
+         let balance = this.state.balance;
+         }
+      
+       
+        
         firstHalfButtonEventListener() {
-           this.firstHalf();
+           this.firstHalf();    
         }
         
          firstHalf() {
@@ -113,14 +121,18 @@ class Board extends React.Component{
             this.drawdeck();
             this.displayCards();
         }
+        
         makeBet(){
             let betmade = document.getElementById('amount').value;
+            this.state.bet = betmade;
             console.log(betmade);
         }
         makedeck(){
             for (var s = 0; s < this.state.suits.length; s++) {
                 for (var v = 0; v < this.state.values.length; v++) {
-                    this.state.card = { Suit: this.state.suits[s], Value: this.state.values[v] };
+           
+                        
+                        this.state.card = { Suit: this.state.suits[s], Value: this.state.values[v] };
                     this.state.deck.push(this.state.card);
                 }
             }
@@ -217,6 +229,7 @@ class Board extends React.Component{
                 $('#message').html('The House Wins');
                 this.dealerdraw();
                 this.state.pwin = false;
+                
             }
         }
         
@@ -272,7 +285,10 @@ class Board extends React.Component{
                 cardvalue += 11;
             }
         }
-        this.state.DDA = total + cardvalue;
+        //this.state.DDA = total + cardvalue;
+        this.setState({
+          DDA:total + cardvalue
+        });
         if (this.state.DDA < 17) {
             var newcard = Math.floor(Math.random() * this.state.deck.length);
             this.state.DCards.push(this.state.deck[newcard]);
@@ -315,14 +331,20 @@ class Board extends React.Component{
                 cardvalue += 11;
             }
         }
-        this.state.DDA = total + cardvalue;
+        //this.state.DDA = total + cardvalue;
+        this.setState({
+            DDA:total + cardvalue
+        });
         console.log(this.state.DDA);
         if (this.state.DDA < 17) {
             this.checkforsafestand();
         } else if (this.state.DDA <= 17 && this.state.pwin === true) {
             $('.playerchoices').click(false);
-            this.state.pwin = false;
+            this.setState({
+                pwin:false
+            });
             $('#message').html('You Lose');
+            this.clearboard();
         } else {
             if (this.state.PDA > 21) { // Player lose
                 //console.log(PDA);
@@ -331,6 +353,7 @@ class Board extends React.Component{
                     pwin:false
                 });
                 $('#message').html('You Lose');
+                this.clearboard();
             } else if (this.state.DDA > this.state.PDA && this.state.DDA <= 21) { // Player lose
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
@@ -338,6 +361,7 @@ class Board extends React.Component{
                 this.setState({
                     pwin:false
                 });
+                this.clearboard();
             } else if (this.state.DDA === this.state.PDA) { // Player lose
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
@@ -345,6 +369,7 @@ class Board extends React.Component{
                 this.setState({
                     pwin:false
                 });
+                this.clearboard();
             } else if (this.state.PDA > this.state.DDA && this.state.PDA <= 21) { // Player wins
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
@@ -352,25 +377,58 @@ class Board extends React.Component{
                 this.setState({
                     pwin:true
                 });
+                this.clearboard();
             } else if (this.state.DDA > this.state.PDA && this.state.DDA > 21 && this.state.PDA <= 21) { // Player wins
                 $('.playerchoices').click(false);
                 $('#message').html('You Win');
                 this.setState({
                     pwin:true
                 });
+                this.clearboard();
             }
         }
     }
 
-    clearboard(){}
+    clearboard(){
+        $('#pcard0').css('background', '');
+        $('#pcard0').empty();
+        $('#pcard1').css('background', '');
+        $('#pcard1').empty();
+        $('#pcard2').css('background', '');
+        $('#pcard2').empty();
+        $('#pcard3').css('background', '');
+        $('#pcard3').empty();
+        $('#pcard4').css('background', '');
+        $('#pcard4').empty();
+        $('#dcard0').css('background', '');
+        $('#dcard0').empty();
+        $('#dcard1').css('background', '');
+        $('#dcard1').empty();
+        $('#dcard2').css('background', '');
+        $('#dcard2').empty();
+        $('#dcard3').css("background", '');
+        $('#dcard3').empty();
+        $('#dcard4').css('background', '');
+        $('#dcard4').empty();
+        $('#message').html('BlackJack');
+        this.state.PCards = [];
+        this.state.DCards = [];
+        this.state.playdeck = [];
+        this.state.NPCards = [];
+        this.state.deck = [];
+        this.state.balance ='';
+    }
         
         render() {
+            console.log(this.state.bet);
         return( 
             <Elements 
             onClickGame={() => this.firstHalfButtonEventListener()}
             onClickmakeBet={() => this.makeBet()} 
             onClickHit={() => this.hit()}
-            onClickStick={() => this.stick()}
+            onClickStick={() => this.stick()
+            }
+            balance={this.state.balance}
             />
             )
         }
@@ -380,14 +438,17 @@ class Board extends React.Component{
 
 
 class Game extends React.Component {
+    
     constructor(props) {
         super(props);
         this.state = {
             player: '',
-            Winner: ''
+            Winner: '',
+            
         };
       
-
+       
+     
     }
 
 
@@ -406,3 +467,4 @@ ReactDOM.render(
 );
 
 
+// refresh page with button new-game
