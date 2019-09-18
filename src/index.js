@@ -18,24 +18,24 @@ console.log(props);
         <div class="board">
         <h1 id="message">BlackJack</h1>
         <div id="dcard0">
-            <p id="dc0">
-            </p>
+            {/* <p id="dc0">
+            </p> */}
         </div>
 
         <div id="dcard1">
-            <p id="dc1"></p>
+            {/* <p id="dc1"></p> */}
         </div>
 
         <div id="dcard2">
-            <p id="dc2"></p>
+            {/* <p id="dc2"></p> */}
         </div>
 
         <div id="dcard3">
-            <p id="dc3"></p>
+            {/* <p id="dc3"></p> */}
         </div>
 
         <div id="dcard4">
-            <p id="dc4"></p>
+            {/* <p id="dc4"></p> */}
         </div>
 
         <div class="card playersmoney">
@@ -47,31 +47,35 @@ console.log(props);
         </div>
 
          <div id="pcard0">
-            <p id="pc0"></p>
+            {/* <p id="pc0"></p> */}
         </div> 
 
         <div id="pcard1">
-            <p id="pc1"></p>
+            {/* <p id="pc1"></p> */}
         </div>
 
         <div id="pcard2">
-            <p id="pc2"></p>
+            {/* <p id="pc2"></p> */}
         </div>
         <div id="pcard3">
-            <p id="pc3"></p>
+            {/* <p id="pc3"></p> */}
         </div>
         <div id="pcard4">
-            <p id="pc4"></p>
+            {/* <p id="pc4"></p> */}
         </div>
         <div class="playerchoices">
       
-            <button type="button" id="hit" class="btn btn-secondary hit" onClick={props.onClickHit}>Hit</button>
-            <button type="button" id="stick" class="btn btn-secondary stick" onClick={props.onClickStick}>Stick</button>
+          
      
           
-            <button type="button" id="new-game" class="btn btn-secondary new-game" onClick={props.onClickGame}>New Game</button>
+         
             
-        </div><button type="button" id="reset-game" class="btn btn-secondary reset-game" onClick={props.onClickReset}>Reset</button>
+        </div>
+        <button type="button" id="new-game" class="btn btn-secondary new-game" onClick={props.onClickGame}>New Game</button>
+        
+        <button type="button" id="reset-game" class="btn btn-secondary reset-game" onClick={props.onClickReset}>Reset</button>  
+        <button type="button" id="hit" class="btn btn-secondary hit" onClick={props.onClickHit}>Hit</button>
+            <button type="button" id="stick" class="btn btn-secondary stick" onClick={props.onClickStick}>Stick</button>
     </div>
 )
 }
@@ -98,7 +102,8 @@ class Board extends React.Component{
              balance : 100,
             firstHalf:'',
             pwin:false,
-            'bet':0
+            'bet':0,
+            'play':true
              
         };
         
@@ -109,7 +114,11 @@ class Board extends React.Component{
     
         
         firstHalfButtonEventListener() {
-           this.firstHalf();    
+         
+                this.firstHalf();
+             // console.log('hi');
+  
+            
         }
         
          firstHalf() {
@@ -126,6 +135,7 @@ class Board extends React.Component{
             console.log(betmade);
         }
         makedeck(){
+            console.log('sdfs');
             for (var s = 0; s < this.state.suits.length; s++) {
                 for (var v = 0; v < this.state.values.length; v++) {
            
@@ -411,6 +421,26 @@ class Board extends React.Component{
             //$('#dcard4').empty();
             $('#message').html('BlackJack'); 
        //document.getElementById("pcard0").style.display = "none";
+       this.setState({
+                deck : [],
+                card : {},
+                suits : ["♥", "♦", "♣", "♠"],
+                values : ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "K", "Q", "J"],
+                deck_random :[],
+                playdeck : [],
+                PCards : [],
+                PPCards:[],
+                DCards : [],
+                NPCards : [],
+                PDA : 0,
+                DDA : 0,
+                playerOption : '',
+                balance : 100,
+            firstHalf:'',
+            pwin:false,
+            'bet':0,
+            'play':true
+       })
     }
 
   
