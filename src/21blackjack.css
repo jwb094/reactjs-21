@@ -175,7 +175,7 @@ input[type="text"] {
     text-align: center;
 }
 
-.playerchoices .new-game {
+.playerchoices .new-game,.playerchoices .reset-game {
     width: 180px;
     height: 35px;
 }

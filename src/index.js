@@ -70,7 +70,8 @@ console.log(props);
      
           
             <button type="button" id="new-game" class="btn btn-secondary new-game" onClick={props.onClickGame}>New Game</button>
-        </div>
+            
+        </div><button type="button" id="reset-game" class="btn btn-secondary reset-game" onClick={props.onClickReset}>Reset</button>
     </div>
 )
 }
@@ -85,7 +86,7 @@ class Board extends React.Component{
              card : {},
              suits : ["♥", "♦", "♣", "♠"],
              values : ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "K", "Q", "J"],
-            deck_random :[],
+             deck_random :[],
              playdeck : [],
              PCards : [],
              PPCards:[],
@@ -105,8 +106,7 @@ class Board extends React.Component{
 
       
 
-      
-         newg = $('.playerchoices .new-game');
+    
         
         firstHalfButtonEventListener() {
            this.firstHalf();    
@@ -293,26 +293,26 @@ class Board extends React.Component{
                 let dcard = this.state.DCards[2].Value + this.state.DCards[2].Suit;
                 $('#dcard2').css("background", "url(./imgs/" + dcard + ".svg)");
                 document.getElementById('dcard2').style.backgroundSize = "145px 200px";
-                // calculateDealersCards();
+                this.calculateDealersCards();
             }
             if (this.state.DCards.length === 4) {
                 console.log(this.state.DCards);
                 let dcard = this.state.DCards[3].Value + this.state.DCards[3].Suit;
                 $('#dcard3').css("background", "url(./imgs/" + dcard + ".svg)");
                 document.getElementById('dcard3').style.backgroundSize = "145px 200px";
-                // calculateDealersCards();
+                this.calculateDealersCards();
             }
             if (this.state.DCards.length === 5) {
                 console.log(this.state.DCards);
                 let dcard = this.state.DCards[4].Value + this.state.DCards[4].Suit;
                 $('#dcard4').css("background", "url(i./mgs/" + dcard + ".svg)");
                 document.getElementById('dcard4').style.backgroundSize = "150px 200px";
-                //calculateDealersCards();
+                this.calculateDealersCards();
             } else {
                 this.calculateDealersCards();
             }
         }
-        this.calculateDealersCards();
+       // this.calculateDealersCards();
     }
 
      calculateDealersCards() {
@@ -340,7 +340,7 @@ class Board extends React.Component{
                 pwin:false
             });
             $('#message').html('You Lose');
-            this.clearboard();
+           // this.clearboard();
         } else {
             if (this.state.PDA > 21) { // Player lose
                 //console.log(PDA);
@@ -349,7 +349,7 @@ class Board extends React.Component{
                     pwin:false
                 });
                 $('#message').html('You Lose');
-                this.clearboard();
+           //     this.clearboard();
             } else if (this.state.DDA > this.state.PDA && this.state.DDA <= 21) { // Player lose
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
@@ -357,7 +357,7 @@ class Board extends React.Component{
                 this.setState({
                     pwin:false
                 });
-                this.clearboard();
+               // this.clearboard();
             } else if (this.state.DDA === this.state.PDA) { // Player lose
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
@@ -365,7 +365,7 @@ class Board extends React.Component{
                 this.setState({
                     pwin:false
                 });
-                this.clearboard();
+              //  this.clearboard();
             } else if (this.state.PDA > this.state.DDA && this.state.PDA <= 21) { // Player wins
                 $('.playerchoices').click(false);
                 //console.log(PDA + " " + DDA);
@@ -373,70 +373,81 @@ class Board extends React.Component{
                 this.setState({
                     pwin:true
                 });
-                this.clearboard();
+             //   this.clearboard();
             } else if (this.state.DDA > this.state.PDA && this.state.DDA > 21 && this.state.PDA <= 21) { // Player wins
                 $('.playerchoices').click(false);
                 $('#message').html('You Win');
                 this.setState({
                     pwin:true
                 });
-                this.clearboard();
+               // this.clearboard();
             }
+        }
+
+        this.winnings_loses();
+    }
+
+    ResetEventListener() {
+      //  this.clearboard();
+           $('#pcard0').css('background', '');
+          //  $('#pcard0').empty();
+            $('#pcard1').css('background', '');
+            //$('#pcard1').empty();
+            $('#pcard2').css('background', '');
+            //$('#pcard2').empty();
+            $('#pcard3').css('background', '');
+            //$('#pcard3').empty();
+            $('#pcard4').css('background', '');
+            //$('#pcard4').empty();
+            $('#dcard0').css('background', '');
+            //$('#dcard0').empty();
+            $('#dcard1').css('background', '');
+            //$('#dcard1').empty();
+            $('#dcard2').css('background', '');
+            //$('#dcard2').empty();
+            $('#dcard3').css("background", '');
+            //$('#dcard3').empty();
+            $('#dcard4').css('background', '');
+            //$('#dcard4').empty();
+            $('#message').html('BlackJack'); 
+       //document.getElementById("pcard0").style.display = "none";
+    }
+
+  
+
+    winnings_loses(){
+            if (this.state.pwin === true) {
+            let winnings =  this.state.bet * 2;
+            //this.state.balance = this.state.balance + winnings;
+            this.setState({
+                balance:this.state.balance + winnings
+            })
+            console.log(winnings);
+            document.getElementById("balance").innerHTML = "balance :£" + this.state.balance;
+            document.getElementById('amount').value = "";
+        } else {
+            //this.state.balance = this.state.balance - this.state.bet;
+            this.setState({
+                balance:this.state.balance - this.state.bet
+            })
+            console.log( this.state.balance);
+            document.getElementById("balance").innerHTML = "balance :£" + this.state.balance;
+            document.getElementById('amount').value = "";
         }
     }
 
-    clearboard(){
-        $('#pcard0').css('background', '');
-        $('#pcard0').empty();
-        $('#pcard1').css('background', '');
-        $('#pcard1').empty();
-        $('#pcard2').css('background', '');
-        $('#pcard2').empty();
-        $('#pcard3').css('background', '');
-        $('#pcard3').empty();
-        $('#pcard4').css('background', '');
-        $('#pcard4').empty();
-        $('#dcard0').css('background', '');
-        $('#dcard0').empty();
-        $('#dcard1').css('background', '');
-        $('#dcard1').empty();
-        $('#dcard2').css('background', '');
-        $('#dcard2').empty();
-        $('#dcard3').css("background", '');
-        $('#dcard3').empty();
-        $('#dcard4').css('background', '');
-        $('#dcard4').empty();
-        $('#message').html('BlackJack');
-       
-        this.setState({
-            PCards:[],
-            deck:[],
-            playdeck : [],
-            PCards : [],
-            PPCards:[],
-            DCards : [],
-            NPCards : []
-        })
-    }
+    
         
         render() {
-            //   let playerchoice = $('.playerchoices');
-            // playerchoice.each(function(i, button) {
-            //     $(button).click(function(event) {
-            //         this.state.playerOption = event.target.id;
-            //         this.hitOrStick();
-            //     });
-            // });
-
-            // console.log(this.state.bet);
+          
         return( 
             <Elements 
             onClickGame={() => this.firstHalfButtonEventListener()}
             onClickmakeBet={() => this.makeBet()} 
             onClickHit={() => this.hit()}
-            onClickStick={() => this.stick()
-            }
+            onClickStick={() => this.stick()}
             balance={this.state.balance}
+            onClickReset={() => this.ResetEventListener()}
             />
             )
         }
