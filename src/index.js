@@ -460,10 +460,14 @@ class Board extends React.Component{
             //this.state.balance = this.state.balance - this.state.bet;
             this.setState({
                 balance:this.state.balance - this.state.bet
-            })
+            }) 
+            if (this.state.balance == 0) {
+                $('#message').html('The House Always Wins');
+            } else {
             console.log( this.state.balance);
             document.getElementById("balance").innerHTML = "balance :£" + this.state.balance;
             document.getElementById('amount').value = "";
+        }
         }
     }
 
