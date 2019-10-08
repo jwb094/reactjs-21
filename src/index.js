@@ -435,12 +435,13 @@ class Board extends React.Component{
                 PDA : 0,
                 DDA : 0,
                 playerOption : '',
-                balance : 100,
+                //balance : 100,
             firstHalf:'',
             pwin:false,
             'bet':0,
             'play':true
        })
+       this.winnings_loses();
     }
 
   
